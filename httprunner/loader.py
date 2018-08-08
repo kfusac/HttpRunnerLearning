@@ -1,5 +1,21 @@
 import json
+import yaml
+
 from httprunner import expections
+
+
+def load_yaml_file(yaml_file):
+    '''
+    load yaml file and check file content format
+    '''
+
+    with open(yaml_file, 'r', encoding='utf-8') as f:
+        yaml_content = yaml.load(f)
+        _check_format(yaml_file, yaml_content)
+        if not isinstance(yaml_content, dict):
+            err_msg = f'YAML file format error: {yaml_file}'
+            raise expections.FileFormatError(err_msg)
+        return yaml_content
 
 
 def load_json_file(json_file):
