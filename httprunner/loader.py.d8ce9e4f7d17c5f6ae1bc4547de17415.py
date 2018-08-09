@@ -8,7 +8,6 @@ from httprunner import exceptions, validator
 ##   file loader
 ###############################################################################
 
-
 def load_yaml_file(yaml_file):
     '''
     load yaml file and check file content format
@@ -39,8 +38,7 @@ def load_json_file(json_file):
         _check_format(json_file, json_content)
         return json_content
 
-
-def locate_file(start_path, file_name):
+def locate_file(start_path,file_name):
     '''
     locate filename and return file path.
     searching will be recursive upward until currect working directory.
@@ -55,28 +53,24 @@ def locate_file(start_path, file_name):
     Raises:
         exceptions.FileNotFoundError: If failed to locate file.
     '''
-
+    
     if os.path.isfile(start_path):
-        start_dir_path = os.path.dirname(start_path)
+        start_dir_path=os.path.dirname(start_path)
     elif os.path.isdir(start_path):
-        if start_path.endswith('\\') or start_path.endswith('/'):
-            start_path=start_path.rstrip('\\').rstrip('/')
-        start_dir_path = start_path
+        start_dir_path=start_path
     else:
-        raise exceptions.FileNotFoundError(f'invaild path: {start_path}')
-
-    file_path = os.path.join(start_dir_path, file_name)
+        raise exceptions.FileFormatError(f'invaild path: {start_path}')
+    
+    file_path=os.path.join(start_dir_path,file_name)
     if os.path.isfile(file_path):
         if os.path.isabs(file_path):
-            file_path = file_path[len(os.getcwd()) + 1:]
+            file_path=file_path[len(os.getcwd())+1:]
         return file_path
-
-    if os.path.abspath(start_dir_path) == os.getcwd():
-        raise exceptions.FileNotFoundError(
-            f'{file_name} not found in {start_path}')
-
-    return locate_file(os.path.dirname(start_dir_path), file_name)
-
+    
+    if os.path.abspath(start_dir_path)==os.getcwd():
+        raise exceptions.FileNotFoundError(f'{file_name} not found in {start_path}')
+    
+    return locate_file(os.path.dirname(start_dir_path),file_name)
 
 def _check_format(file_path, content):
     '''
@@ -90,11 +84,9 @@ def _check_format(file_path, content):
     elif not isinstance(content, (list, dict)):
         err_msg = f'testcase does content format invaild: {file_path}'
 
-
 ###############################################################################
 ##   module loader
 ###############################################################################
-
 
 def convert_module_name(python_file_path):
     '''
@@ -162,3 +154,5 @@ def load_custom_function_module(start_path=None):
         module_path = 'tests/'
     except expression as identifier:
         pass
+
+

@@ -1,6 +1,6 @@
 name: create user which does not exist
 import_module_funtions:
-  - tests.custum.functions
+  - tests.custom.functions
 variables:
   - Token: richard
   - json: {"name": "user", "password": "123456"}

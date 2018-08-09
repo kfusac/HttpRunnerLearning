@@ -25,5 +25,8 @@ class ParamsError(MyBaseError):
 class NotFoundError(MyBaseError):
     pass
 
+class FileNotFoundError(NotFoundError):
+    pass
+
 class FunctionNotFoundError(NotFoundError):
     pass
