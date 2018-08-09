@@ -1,6 +1,6 @@
 import requests
 
-from httprunner import util,expections
+from httprunner import util,exceptions
 
 
 def run_single_testcase(testcase):
@@ -10,7 +10,7 @@ def run_single_testcase(testcase):
         url = req_kwargs.pop('url')
         method = req_kwargs.pop('method')
     except KeyError:
-        raise expections.ParamsError('Params Error')
+        raise exceptions.ParamsError('Params Error')
 
     resp_obj = requests.request(url=url, method=method, **req_kwargs)
     diff_content = util.diff_response(resp_obj, testcase['response'])

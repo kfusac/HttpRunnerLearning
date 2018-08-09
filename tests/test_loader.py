@@ -1,7 +1,7 @@
 import os
 import pytest
 
-from httprunner import expections,loader
+from httprunner import exceptions,loader
 
 class TestFileLoader:
     def test_load_json_file_format_error(self):
@@ -11,7 +11,7 @@ class TestFileLoader:
         with open(json_tmp_file_path,'w') as f:
             f.write('')
         
-        with pytest.raises(expections.FileFormatError):
+        with pytest.raises(exceptions.FileFormatError):
             loader.load_json_file(json_tmp_file_path)
         
         os.remove(json_tmp_file_path)
@@ -20,7 +20,7 @@ class TestFileLoader:
         with open(json_tmp_file_path,'w') as f:
             f.write('{}')
         
-        with pytest.raises(expections.FileFormatError):
+        with pytest.raises(exceptions.FileFormatError):
             loader.load_json_file(json_tmp_file_path)
         
         os.remove(json_tmp_file_path)
@@ -29,7 +29,7 @@ class TestFileLoader:
         with open(json_tmp_file_path,'w') as f:
             f.write('abc')
         
-        with pytest.raises(expections.FileFormatError):
+        with pytest.raises(exceptions.FileFormatError):
             loader.load_json_file(json_tmp_file_path)
         
         os.remove(json_tmp_file_path)
@@ -41,7 +41,7 @@ class TestFileLoader:
         with open(yml_tmp_file_path,'w') as f:
             f.write('')
         
-        with pytest.raises(expections.FileFormatError):
+        with pytest.raises(exceptions.FileFormatError):
             loader.load_yaml_file(yml_tmp_file_path)
         
         os.remove(yml_tmp_file_path)
@@ -50,7 +50,7 @@ class TestFileLoader:
         with open(yml_tmp_file_path,'w') as f:
             f.write('abc')
         
-        with pytest.raises(expections.FileFormatError):
+        with pytest.raises(exceptions.FileFormatError):
             loader.load_yaml_file(yml_tmp_file_path)
         
         os.remove(yml_tmp_file_path)

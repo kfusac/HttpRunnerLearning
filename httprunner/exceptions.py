@@ -13,11 +13,17 @@ error type exceptions
 this exceptions will mark test as error
 '''
 
-class MyBaseError(BaseException):
+class MyBaseError(Exception):
     pass
 
 class FileFormatError(MyBaseError):
     pass
 
 class ParamsError(MyBaseError):
+    pass
+
+class NotFoundError(MyBaseError):
+    pass
+
+class FunctionNotFoundError(NotFoundError):
     pass

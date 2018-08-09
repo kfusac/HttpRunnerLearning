@@ -103,5 +103,5 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-# func test
+# test for test code
 /tests/tests

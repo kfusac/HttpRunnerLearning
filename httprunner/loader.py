@@ -1,7 +1,7 @@
 import json
 import yaml
 
-from httprunner import expections
+from httprunner import exceptions
 
 
 def load_yaml_file(yaml_file):
@@ -14,7 +14,7 @@ def load_yaml_file(yaml_file):
         _check_format(yaml_file, yaml_content)
         if not isinstance(yaml_content, dict):
             err_msg = f'YAML file format error: {yaml_file}'
-            raise expections.FileFormatError(err_msg)
+            raise exceptions.FileFormatError(err_msg)
         return yaml_content
 
 
@@ -26,10 +26,10 @@ def load_json_file(json_file):
     with open(json_file, encoding='utf-8') as data_file:
         try:
             json_content = json.load(data_file)
-        except expections.JSONDecodeError:
+        except exceptions.JSONDecodeError:
             err_msg = f'JSONDecodeError: JSON file format error: {json_file}'
             print(err_msg)
-            raise expections.FileFormatError(err_msg)
+            raise exceptions.FileFormatError(err_msg)
 
         _check_format(json_file, json_content)
         return json_content
@@ -43,6 +43,6 @@ def _check_format(file_path, content):
     if not content:
         err_msg = f'Testcase file content is empty: {file_path}'
         print(err_msg)
-        raise expections.FileFormatError(err_msg)
+        raise exceptions.FileFormatError(err_msg)
     elif not isinstance(content, (list, dict)):
         err_msg = f'testcase does content format invaild: {file_path}'

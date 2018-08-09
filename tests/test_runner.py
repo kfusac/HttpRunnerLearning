@@ -1,7 +1,7 @@
 import os
 import pytest
 
-from httprunner import expections, runner, loader
+from httprunner import exceptions, runner, loader
 from tests.base import TestApiServerBase
 
 
@@ -22,7 +22,7 @@ class TestRunner(TestApiServerBase):
 
         json_testcase = loader.load_json_file(path)
 
-        with pytest.raises(expections.ParamsError):
+        with pytest.raises(exceptions.ParamsError):
             runner.run_single_testcase(json_testcase)
 
     def test_run_single_json_testcase_success(self):
