@@ -18,7 +18,7 @@ class TestApiServerBase:
             target=run_flask
         )
         cls.flask_process.start()
-        time.sleep(0.1)
+        time.sleep(1)
         cls.api_client=requests.Session()
     
     @classmethod

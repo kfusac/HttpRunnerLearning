@@ -17,7 +17,15 @@ class TestRunner(TestApiServerBase):
     def setup_method(self):
         self.reset_all()
 
-    def test_run_single_json_testcase(self):
+    def test_run_single_testcase_with_paramerror_json(self):
+        path = 'tests/testcase/param_without_url.json'
+
+        json_testcase = loader.load_json_file(path)
+
+        with pytest.raises(expections.ParamsError):
+            runner.run_single_testcase(json_testcase)
+
+    def test_run_single_json_testcase_success(self):
         path = 'tests/testcase/smoke_test.json'
 
         json_testcase = loader.load_json_file(path)
@@ -26,7 +34,7 @@ class TestRunner(TestApiServerBase):
         print(diff_content)
         assert success
 
-    def test_run_single_yaml_testcase(self):
+    def test_run_single_yaml_testcase_success(self):
         path = 'tests/testcase/smoke_test.yml'
 
         json_testcase = loader.load_yaml_file(path)

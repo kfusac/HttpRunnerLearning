@@ -1,0 +1,27 @@
+{
+    "name": "create user which does not exist",
+    "request": {
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "json": {
+            "name": "user1",
+            "password": "123456"
+        }
+    },
+    "response": {
+        "status_code": 200,
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "body": {
+            "success": true,
+            "data": {
+                "name": "user1",
+                "password": "123456"
+            },
+            "msg": "user created successful"
+        }
+    }
+}
