@@ -16,7 +16,7 @@ class TestFileLoader:
         with pytest.raises(exceptions.FileFormatError):
             loader.load_json_file(json_tmp_file_path)
 
-        os.remove(json_tmp_file_path)
+        #os.remove(json_tmp_file_path)
 
         # create empty json file
         with open(json_tmp_file_path, 'w') as f:
@@ -25,7 +25,7 @@ class TestFileLoader:
         with pytest.raises(exceptions.FileFormatError):
             loader.load_json_file(json_tmp_file_path)
 
-        os.remove(json_tmp_file_path)
+        #os.remove(json_tmp_file_path)
 
         # create invaild format json file
         with open(json_tmp_file_path, 'w') as f:
@@ -34,7 +34,7 @@ class TestFileLoader:
         with pytest.raises(exceptions.FileFormatError):
             loader.load_json_file(json_tmp_file_path)
 
-        os.remove(json_tmp_file_path)
+        #os.remove(json_tmp_file_path)
 
     def test_load_yaml_file_format_error(self):
         yml_tmp_file_path = 'tests/data/tmp.yml'
@@ -46,7 +46,7 @@ class TestFileLoader:
         with pytest.raises(exceptions.FileFormatError):
             loader.load_yaml_file(yml_tmp_file_path)
 
-        os.remove(yml_tmp_file_path)
+        #os.remove(yml_tmp_file_path)
 
         # create invaild format yaml file
         with open(yml_tmp_file_path, 'w') as f:
@@ -55,7 +55,7 @@ class TestFileLoader:
         with pytest.raises(exceptions.FileFormatError):
             loader.load_yaml_file(yml_tmp_file_path)
 
-        os.remove(yml_tmp_file_path)
+        #os.remove(yml_tmp_file_path)
 
     def test_locate_file(self):
         with pytest.raises(exceptions.FileNotFoundError):
