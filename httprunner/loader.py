@@ -1,6 +1,7 @@
 import os
 import json
 import yaml
+import importlib
 
 from httprunner import exceptions, validator
 
@@ -60,7 +61,7 @@ def locate_file(start_path, file_name):
         start_dir_path = os.path.dirname(start_path)
     elif os.path.isdir(start_path):
         if start_path.endswith('\\') or start_path.endswith('/'):
-            start_path=start_path.rstrip('\\').rstrip('/')
+            start_path = start_path.rstrip('\\').rstrip('/')
         start_dir_path = start_path
     else:
         raise exceptions.FileNotFoundError(f'invaild path: {start_path}')
@@ -107,7 +108,7 @@ def convert_module_name(python_file_path):
         str: module name
     '''
 
-    module_name = python_file_path.replace('/', '.').rstrip('.py')
+    module_name = python_file_path.replace('/', '.').replace('\\', '.').rstrip('.py')
     return module_name
 
 
@@ -127,16 +128,16 @@ def load_python_module(module):
             }
     '''
 
-    modules = {'variables': {}, 'functions': {}}
+    python_module = {'variables': {}, 'functions': {}}
     for name, item in vars(module).items():
         if validator.is_function((name, item)):
-            modules['functions'][name] = item
+            python_module['functions'][name] = item
         elif validator.is_variable((name, item)):
-            modules['variables'][name] = item
+            python_module['variables'][name] = item
         else:
             pass
 
-    return modules
+    return python_module
 
 
 def load_custom_function_module(start_path=None):
@@ -159,6 +160,10 @@ def load_custom_function_module(start_path=None):
     start_path = start_path or os.getcwd()
 
     try:
-        module_path = 'tests/'
-    except expression as identifier:
-        pass
+        module_path = locate_file(start_path, 'custom_functions.py')
+        module_name = convert_module_name(module_path)
+    except exceptions.FileNotFoundError:
+        return {'variables': {}, 'functions': {}}
+
+    imported_module = importlib.import_module(module_name)
+    return load_python_module(imported_module)
