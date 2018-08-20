@@ -10,6 +10,10 @@ function_regexp_compile = re.compile(r'^(\w+)\(([\$\w =,]*)\)$')
 
 
 def parse_string_value(str_value):
+    '''
+    safe eval prevent code inject
+    '''
+
     try:
         return ast.literal_eval(str_value)
     except ValueError:
@@ -19,6 +23,16 @@ def parse_string_value(str_value):
 
 
 def parse_function(content):
+    '''
+    parse function expression
+    
+    Args:
+        expression
+    
+    Returns:
+        function metadata
+    '''
+
     matched = function_regexp_compile.match(content)
 
     if not matched:
